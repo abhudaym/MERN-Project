@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { AddTransaction } from "./components/AddTransaction";
 
 function App() {
   return (
     <div>
-      Hello World
+      <AddTransaction />
     </div>
   );
 }
