@@ -10,6 +10,7 @@ import { TransactionList } from "./components/TransactionList";
 import { AddTransaction } from "./components/AddTransaction";
 import Dashboard from "./components/Dashboard";
 import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 function App() {
   return (
     <Router>
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route index element={<Dashboard />} exact />
           <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
         </Routes>
       </GlobalContextProvider>
     </Router>
