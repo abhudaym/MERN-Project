@@ -14,29 +14,43 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { GlobalContext } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+
 const theme = createTheme();
 
 export default function SignIn() {
-  const { login, user } = useContext(GlobalContext);
+  const { login, user, error } = useContext(GlobalContext);
   let history = useNavigate();
+  const notify = () =>
+    toast.error("Invalid Credentials", {
+      position: "top-right",
+      duration: 2000,
+    });
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    login({ email, password });
+    const message = login({ email, password });
+    console.log(message);
   };
 
   useEffect(() => {
     if (user && user.name) {
       history("/");
     }
-  }, [user]);
+    if (error && error.message) {
+      if (error.message == "Request failed with status code 401") {
+        notify();
+      }
+    }
+  }, [user, error]);
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+        <Toaster />
         <CssBaseline />
         <Box
           sx={{
