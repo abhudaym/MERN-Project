@@ -1,45 +1,141 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
+import axios from "axios";
 
-//Initial State
-
+// Initial state
 const initialState = {
-  transactions: [
-    { id: 1, text: "Flower", amount: -20 },
-    { id: 2, text: "Salary", amount: 300 },
-    { id: 3, text: "Book", amount: -10 },
-    { id: 4, text: "Camera", amount: 150 },
-  ],
+  transactions: [],
+  user: {},
+  error: null,
+  loading: true,
 };
 
-//Create Context
+// Create context
 export const GlobalContext = createContext(initialState);
 
-//Provider Component
+// Provider component
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  function deleteTransaction(id) {
-    dispatch({
-      type: "DELETE_TRANSACTION",
-      payload: id,
-    });
+  async function getTransactions() {
+    try {
+      const res = await axios.get("/api/v1/transactions");
+      console.log(res);
+      dispatch({
+        type: "GET_TRANSACTIONS",
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "TRANSACTION_ERROR",
+        payload: err.response.data.error,
+      });
+    }
   }
 
-  function addTransaction(transaction) {
-    dispatch({
-      type: "ADD_TRANSACTION",
-      payload: transaction,
-    });
+  async function deleteTransaction(id) {
+    try {
+      await axios.delete(`/api/v1/transactions/${id}`);
+
+      dispatch({
+        type: "DELETE_TRANSACTION",
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: "TRANSACTION_ERROR",
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function addTransaction(transaction) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/api/v1/transactions", transaction, config);
+      console.log(res);
+      dispatch({
+        type: "ADD_TRANSACTION",
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "TRANSACTION_ERROR",
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function login({ email, password }) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/v1/user/login",
+        { email, password },
+        config
+      );
+      console.log(res.data);
+      dispatch({
+        type: "LOGIN_SUCCESSFUL",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: "LOGIN_ERROR",
+        payload: error,
+      });
+    }
+  }
+
+  async function register({ name, email, password }) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/v1/user/register",
+        { name, email, password },
+        config
+      );
+      console.log(res.data);
+      dispatch({
+        type: "REGISTER_SUCCESSFUL",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: "REGISTER_ERROR",
+        payload: error,
+      });
+    }
   }
 
   return (
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
+        user: state.user,
+        error: state.error,
+        loading: state.loading,
+        getTransactions,
         deleteTransaction,
         addTransaction,
+        login,
+        register,
       }}
     >
       {children}

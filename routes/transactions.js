@@ -1,13 +1,15 @@
-const express = require("express");
-const {
+import express from "express";
+
+import {
   getTransactions,
   addTransaction,
   deleteTransactions,
-} = require("../controllers/transactions");
+} from "../controllers/transactions.js";
+import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.route("/").get(getTransactions).post(addTransaction);
 
 router.route("/:id").delete(deleteTransactions);
 
-module.exports = router;
+export default router;

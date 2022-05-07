@@ -1,15 +1,16 @@
-const path = require("path");
-const express = require("express");
-const dotenv = require("dotenv");
-const colors = require("colors");
-const morgan = require("morgan");
-const connectDB = require("./config/db");
+import path from "path";
+import express from "express";
+import dotenv from "dotenv";
+import colors from "colors";
+import morgan from "morgan";
+import connectDB from "./config/db.js";
 
 dotenv.config({ path: "./config/config.env" });
 
 connectDB();
 
-const transactions = require("./routes/transactions");
+import transactions from "./routes/transactions.js";
+import user from "./routes/user.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/api/v1/transactions", transactions);
+app.use("/api/v1/user", user);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
