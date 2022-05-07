@@ -51,18 +51,27 @@ You can now check `http://localhost:3000` on your browser.
 # For Authentication - JWT(JASON WEB TOKENS) BCRYPT are used
 
 ## Project Screenshots
+
+# Login
 ![1](https://user-images.githubusercontent.com/71014778/167243909-9d05c15a-5c4a-4b9b-8a5a-910a8fbedff5.jpg)
 
+# Register
 ![2](https://user-images.githubusercontent.com/71014778/167243913-db655766-4c3d-4d8a-b94d-6cdcf2af84ab.jpg)
 
+# Expense Tracker Layout 1
 ![3](https://user-images.githubusercontent.com/71014778/167243918-3bd474a4-a158-463e-a742-99451bb87251.jpg)
 
+#JWT TOKEN Authentication
 ![4](https://user-images.githubusercontent.com/71014778/167243922-61e92774-0501-4874-a3a8-e9f04db77c20.jpg)
 
+# Expense Tracker Layout 2
 ![1](https://user-images.githubusercontent.com/83213136/162573223-4d615332-1bcb-4318-b4b8-bf06b2a6f871.png)
 
+# Expense Tracker Layout 3
 ![2](https://user-images.githubusercontent.com/83213136/162573224-c1639f2e-00fe-4c07-8e18-08561fbb226b.png
 
+# Expense Tracker Layout 4
 ![3](https://user-images.githubusercontent.com/83213136/162573225-53ae6064-a3a9-4e7a-b923-c4e812c45e1a.png)
 
+# Expense Tracker Layout 5
 ![4](https://user-images.githubusercontent.com/83213136/162573226-230a7713-23f1-402b-9272-1f43d73a580c.png)
