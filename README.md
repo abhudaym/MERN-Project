@@ -34,12 +34,17 @@ npm run start
 ```
 You can now check `http://localhost:3000` on your browser.
 
-DESCRIPTION:
-->Expense Tracker System is designed to keep a track of Income-Expense of an organisation on a day-to-day basis. 
-->This System divides the Income based on daily expenses. If exceed day’s expense, system will calculate income and will provide new daily expense allowed amount. 
+# DESCRIPTION:
+->Expense Tracker System is designed to keep a track of Income-Expense of an organisation on a day-to-day basis.
+
+->This System divides the Income based on daily expenses. If exceed day’s expense, system will calculate income and will provide new daily expense allowed amount.
+
 ->Expense tracking System will generate report at the end of month to show Income-Expense graph. 
+
 ->Employees send reports to the manager for verification. Manager send final reports to administrator .
+
 ->Based on the final reports system predict the next month expense . 
+
 ->It will helps to manage overall expense and income.
 
 # Technologies used - React JS,Node JS,Express JS,MongoDB,Context API
