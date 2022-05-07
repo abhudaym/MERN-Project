@@ -5,6 +5,7 @@ import axios from "axios";
 // Initial state
 const initialState = {
   transactions: [],
+  user: {},
   error: null,
   loading: true,
 };
@@ -20,7 +21,7 @@ export const GlobalContextProvider = ({ children }) => {
   async function getTransactions() {
     try {
       const res = await axios.get("/api/v1/transactions");
-
+      console.log(res);
       dispatch({
         type: "GET_TRANSACTIONS",
         payload: res.data.data,
@@ -58,7 +59,7 @@ export const GlobalContextProvider = ({ children }) => {
 
     try {
       const res = await axios.post("/api/v1/transactions", transaction, config);
-
+      console.log(res);
       dispatch({
         type: "ADD_TRANSACTION",
         payload: res.data.data,
@@ -71,15 +72,37 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
+  async function login({ email, password }) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/v1/user/login",
+        { email, password },
+        config
+      );
+      console.log(res.data);
+      dispatch({
+        type: "LOGIN_SUCCESSFUL",
+        payload: res.data,
+      });
+    } catch (error) {}
+  }
+
   return (
     <GlobalContext.Provider
       value={{
         transactions: state.transactions,
+        user: state.user,
         error: state.error,
         loading: state.loading,
         getTransactions,
         deleteTransaction,
         addTransaction,
+        login,
       }}
     >
       {children}
