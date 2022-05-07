@@ -1,10 +1,10 @@
-const Transaction = require("../models/Transaction");
+import Transaction from "../models/Transaction.js";
 
 // @desc  Get all transactions
 // @route GET /api/v1/transactions
 // @access Public
 
-exports.getTransactions = async (req, res, next) => {
+const getTransactions = async (req, res, next) => {
   try {
     const transactions = await Transaction.find();
     return res.status(200).json({
@@ -24,7 +24,7 @@ exports.getTransactions = async (req, res, next) => {
 // @route POST /api/v1/transactions
 // @access Public
 
-exports.addTransaction = async (req, res, next) => {
+const addTransaction = async (req, res, next) => {
   try {
     const { text, amount } = req.body;
 
@@ -55,7 +55,7 @@ exports.addTransaction = async (req, res, next) => {
 // @route DELETE /api/v1/transactions/:id
 // @access Public
 
-exports.deleteTransactions = async (req, res, next) => {
+const deleteTransactions = async (req, res, next) => {
   try {
     const transaction = await Transaction.findById(req.params.id);
 
@@ -79,3 +79,5 @@ exports.deleteTransactions = async (req, res, next) => {
     });
   }
 };
+
+export { addTransaction, deleteTransactions, getTransactions };
