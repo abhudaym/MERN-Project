@@ -89,7 +89,39 @@ export const GlobalContextProvider = ({ children }) => {
         type: "LOGIN_SUCCESSFUL",
         payload: res.data,
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: "LOGIN_ERROR",
+        payload: error,
+      });
+    }
+  }
+
+  async function register({ name, email, password }) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        "/api/v1/user/register",
+        { name, email, password },
+        config
+      );
+      console.log(res.data);
+      dispatch({
+        type: "REGISTER_SUCCESSFUL",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.error(error);
+      dispatch({
+        type: "REGISTER_ERROR",
+        payload: error,
+      });
+    }
   }
 
   return (
@@ -103,6 +135,7 @@ export const GlobalContextProvider = ({ children }) => {
         deleteTransaction,
         addTransaction,
         login,
+        register,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,18 +12,32 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { GlobalContext } from "../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const { register, user } = useContext(GlobalContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const name = data.get("firstName") + " " + data.get("lastName");
+    const email = data.get("email");
+    const password = data.get("password");
     console.log({
+      name: data.get("firstName") + " " + data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
     });
+    register({ name, email, password });
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && user.name) navigate("/login");
+  }, [user]);
 
   return (
     <ThemeProvider theme={theme}>
