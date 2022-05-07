@@ -1,5 +1,5 @@
 # MERN-Project
-=======
+<hr />
 ## Tech Stack
 - React
   - Context API
