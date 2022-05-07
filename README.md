@@ -1,5 +1,5 @@
 # MERN-Project
-
+=======
 ## Tech Stack
 - React
   - Context API
@@ -36,7 +36,8 @@ You can now check `http://localhost:3000` on your browser.
 
 DESCRIPTION:
 ->Expense Tracker System is designed to keep a track of Income-Expense of an organisation on a day-to-day basis. 
-->This System divides the Income based on daily expenses. If exceed day’s expense, system will calculate income and will provide new daily expense allowed amount. -->Expense tracking System will generate report at the end of month to show Income-Expense graph. 
+->This System divides the Income based on daily expenses. If exceed day’s expense, system will calculate income and will provide new daily expense allowed amount. 
+-->Expense tracking System will generate report at the end of month to show Income-Expense graph. 
 ->Employees send reports to the manager for verification. Manager send final reports to administrator .
 ->Based on the final reports system predict the next month expense . 
 ->It will helps to manage overall expense and income.
@@ -49,7 +50,6 @@ DESCRIPTION:
 ![3](https://user-images.githubusercontent.com/71014778/167243918-3bd474a4-a158-463e-a742-99451bb87251.jpg)
 
 ![4](https://user-images.githubusercontent.com/71014778/167243922-61e92774-0501-4874-a3a8-e9f04db77c20.jpg)
-
 
 ![1](https://user-images.githubusercontent.com/83213136/162573223-4d615332-1bcb-4318-b4b8-bf06b2a6f871.png)
 
