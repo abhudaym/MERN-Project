@@ -61,7 +61,7 @@ You can now check `http://localhost:3000` on your browser.
 # Expense Tracker Layout 1
 ![3](https://user-images.githubusercontent.com/71014778/167243918-3bd474a4-a158-463e-a742-99451bb87251.jpg)
 
-#JWT TOKEN Authentication
+# JWT TOKEN Authentication
 ![4](https://user-images.githubusercontent.com/71014778/167243922-61e92774-0501-4874-a3a8-e9f04db77c20.jpg)
 
 # Expense Tracker Layout 2
