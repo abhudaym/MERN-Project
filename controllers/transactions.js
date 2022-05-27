@@ -1,4 +1,5 @@
 import Transaction from "../models/Transaction.js";
+import User from "../models/User.js";
 
 // @desc  Get all transactions
 // @route GET /api/v1/transactions
@@ -6,7 +7,10 @@ import Transaction from "../models/Transaction.js";
 
 const getTransactions = async (req, res, next) => {
   try {
-    const transactions = await Transaction.find();
+    // find same user and display those in json
+    const user = req.user._id;
+    const test = await User.findById(user._id).select("-password");
+    const transactions = await Transaction.find({ user: user });
     return res.status(200).json({
       success: true,
       count: transactions.length,
@@ -27,12 +31,18 @@ const getTransactions = async (req, res, next) => {
 const addTransaction = async (req, res, next) => {
   try {
     const { text, amount } = req.body;
+    const user = req.user._id;
+    const transaction = new Transaction({
+      user,
+      text,
+      amount,
+    });
+    const createdTransaction = await transaction.save();
 
-    const transaction = await Transaction.create(req.body);
-
+    console.log(createdTransaction);
     return res.status(201).json({
       success: true,
-      data: transaction,
+      data: createdTransaction,
     });
   } catch (error) {
     if (error.name === "ValidationError") {
