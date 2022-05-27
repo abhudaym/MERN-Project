@@ -139,6 +139,13 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
+  async function logout() {
+    localStorage.removeItem("userInfo");
+    dispatch({
+      type: "LOGOUT",
+    });
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -151,6 +158,7 @@ export const GlobalContextProvider = ({ children }) => {
         addTransaction,
         login,
         register,
+        logout,
       }}
     >
       {children}

@@ -11,9 +11,22 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { GlobalContext } from "../context/GlobalContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const { user, logout } = React.useContext(GlobalContext);
+
   const [auth, setAuth] = React.useState(true);
+
+  React.useEffect(() => {
+    if (user && user._id) {
+      setAuth(true);
+    }
+  }, [user]);
+
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleChange = (event) => {
@@ -26,6 +39,11 @@ export default function Navbar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
   };
 
   return (
@@ -54,7 +72,7 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photos
+            Expense Tracker
           </Typography>
           {auth && (
             <div>
@@ -85,6 +103,7 @@ export default function Navbar() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
