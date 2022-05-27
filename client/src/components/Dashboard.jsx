@@ -7,6 +7,7 @@ import { TransactionList } from "./TransactionList";
 import { GlobalContext } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import Navbar from "./Navbar";
 
 const Dashboard = () => {
   const { user } = useContext(GlobalContext);
@@ -29,6 +30,7 @@ const Dashboard = () => {
       <div>
         <Toaster />
       </div>
+      <Navbar />
       <Header />
       <div className="container">
         <Balance />

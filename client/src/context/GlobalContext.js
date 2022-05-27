@@ -1,11 +1,16 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 import axios from "axios";
+
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+console.log(userInfoFromStorage);
 
 // Initial state
 const initialState = {
   transactions: [],
-  user: {},
+  user: userInfoFromStorage,
   error: null,
   loading: true,
 };
@@ -18,9 +23,16 @@ export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  async function getTransactions() {
+  async function getTransactions(token) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     try {
-      const res = await axios.get("/api/v1/transactions");
+      const res = await axios.get("/api/v1/transactions", config);
       console.log(res);
       dispatch({
         type: "GET_TRANSACTIONS",
@@ -50,10 +62,11 @@ export const GlobalContextProvider = ({ children }) => {
     }
   }
 
-  async function addTransaction(transaction) {
+  async function addTransaction(transaction, token) {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -65,6 +78,7 @@ export const GlobalContextProvider = ({ children }) => {
         payload: res.data.data,
       });
     } catch (err) {
+      console.log(err);
       dispatch({
         type: "TRANSACTION_ERROR",
         payload: err.response.data.error,
@@ -89,6 +103,7 @@ export const GlobalContextProvider = ({ children }) => {
         type: "LOGIN_SUCCESSFUL",
         payload: res.data,
       });
+      localStorage.setItem("userInfo", JSON.stringify(res.data));
     } catch (error) {
       console.error(error);
       dispatch({

@@ -5,7 +5,8 @@ export const AddTransaction = ({ transaction }) => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState("");
 
-  const { addTransaction } = useContext(GlobalContext);
+  const { addTransaction, user } = useContext(GlobalContext);
+  let token;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -14,7 +15,10 @@ export const AddTransaction = ({ transaction }) => {
       text,
       amount: +amount,
     };
-    addTransaction(newTransaction);
+    if (user && user._id) {
+      token = user.token;
+    }
+    addTransaction(newTransaction, token);
     setAmount("");
     setText("");
   };

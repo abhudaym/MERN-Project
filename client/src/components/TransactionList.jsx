@@ -4,10 +4,14 @@ import { Transaction } from "./Transaction";
 import { GlobalContext } from "../context/GlobalContext";
 
 export const TransactionList = () => {
-  const { transactions, getTransactions, loading } = useContext(GlobalContext);
+  const { transactions, getTransactions, loading, user } =
+    useContext(GlobalContext);
+
+  let token;
+  if (user && user._id) token = user.token;
 
   useEffect(() => {
-    getTransactions();
+    getTransactions(token);
   }, []);
 
   if (loading) {
