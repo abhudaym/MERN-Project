@@ -1,4 +1,4 @@
-# MERN-Project
+# Bachat - An intuitive expense tracking application
 <hr />
 
 ## Tech Stack
